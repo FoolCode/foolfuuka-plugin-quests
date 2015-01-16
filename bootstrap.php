@@ -14,7 +14,7 @@ class HHVM_Quests
 {
     public function run()
     {
-        Event::forge('Foolz\Plugin\Plugin::execute.foolz/foolfuuka-plugin-quests')
+        Event::forge('Foolz\Plugin\Plugin::execute#foolz/foolfuuka-plugin-quests')
             ->setCall(function ($plugin) {
                 /** @var Context $context */
                 $context = $plugin->getParam('context');
@@ -28,7 +28,7 @@ class HHVM_Quests
                     'Foolz\Foolfuuka\Controller\Chan\Quests' => __DIR__.'/classes/controller/chan.php'
                 ]);
 
-                Event::forge('Foolz\Foolframe\Model\Context.handleWeb.route_collection')
+                Event::forge('Foolz\Foolframe\Model\Context::handleWeb#obj.routing')
                     ->setCall(function ($result) use ($context) {
                         $radix_collection = $context->getService('foolfuuka.radix_collection');
                         $radices = $radix_collection->getAll();
@@ -56,7 +56,7 @@ class HHVM_Quests
                         }
                     });
 
-                Event::forge('Foolz\Foolframe\Model\Context.handleWeb.has_auth')
+                Event::forge('Foolz\Foolframe\Model\Context::handleWeb#obj.afterAuth')
                     ->setCall(function ($result) use ($context) {
                         Event::forge('foolframe.themes.generic_top_nav_buttons')
                             ->setCall(function ($nav) {
@@ -69,7 +69,7 @@ class HHVM_Quests
                             })->setPriority(1);
                     });
 
-                Event::forge('Foolz\Foolfuuka\Model\Radix::structure.result')
+                Event::forge('Foolz\Foolfuuka\Model\RadixCollection::structure#var.structure')
                     ->setCall(function ($result) {
                         $structure = $result->getParam('structure');
                         $structure['plugin_quests'] = [

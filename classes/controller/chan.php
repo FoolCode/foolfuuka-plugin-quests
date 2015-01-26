@@ -1,16 +1,16 @@
 <?php
 
-namespace Foolz\Foolfuuka\Controller\Chan;
+namespace Foolz\FoolFuuka\Controller\Chan;
 
-use Foolz\Foolframe\Model\Plugins;
-use Foolz\Foolframe\Model\Uri;
-use Foolz\Foolfuuka\Model\Search;
+use Foolz\FoolFrame\Model\Plugins;
+use Foolz\FoolFrame\Model\Uri;
+use Foolz\FoolFuuka\Model\Search;
 use Foolz\Plugin\Plugin;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
-class Quests extends \Foolz\Foolfuuka\Controller\Chan
+class Quests extends \Foolz\FoolFuuka\Controller\Chan
 {
     /**
      * @var Plugin
@@ -47,9 +47,9 @@ class Quests extends \Foolz\Foolfuuka\Controller\Chan
                 ->setPage($search['page']);
 
             $board->getComments();
-        } catch (\Foolz\Foolfuuka\Model\SearchException $e) {
+        } catch (\Foolz\FoolFuuka\Model\SearchException $e) {
             return $this->error($e->getMessage());
-        } catch (\Foolz\Foolfuuka\Model\BoardException $e) {
+        } catch (\Foolz\FoolFuuka\Model\BoardException $e) {
             return $this->error($e->getMessage());
         } catch (\Foolz\SphinxQL\ConnectionException $e) {
             return $this->error("It appears that the search engine is offline at the moment. Please try again later.");

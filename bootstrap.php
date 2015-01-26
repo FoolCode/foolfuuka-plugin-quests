@@ -1,12 +1,12 @@
 <?php
 
 use Doctrine\DBAL\Schema\Schema;
-use Foolz\Foolframe\Model\Autoloader;
-use Foolz\Foolframe\Model\Context;
-use Foolz\Foolframe\Model\DoctrineConnection;
-use Foolz\Foolframe\Model\Plugins;
-use Foolz\Foolframe\Model\Uri;
-use Foolz\Foolfuuka\Model\RadixCollection;
+use Foolz\FoolFrame\Model\Autoloader;
+use Foolz\FoolFrame\Model\Context;
+use Foolz\FoolFrame\Model\DoctrineConnection;
+use Foolz\FoolFrame\Model\Plugins;
+use Foolz\FoolFrame\Model\Uri;
+use Foolz\FoolFuuka\Model\RadixCollection;
 use Foolz\Plugin\Event;
 use Symfony\Component\Routing\Route;
 
@@ -19,13 +19,13 @@ class HHVM_Quests
                 /** @var Context $context */
                 $context = $plugin->getParam('context');
                 $context->getContainer()
-                    ->register('foolfuuka-plugin.quests', 'Foolz\Foolfuuka\Plugins\Quests\Model\Quests')
+                    ->register('foolfuuka-plugin.quests', 'Foolz\FoolFuuka\Plugins\Quests\Model\Quests')
                     ->addArgument($context);
 
                 /** @var Autoloader $autoloader */
                 $autoloader = $context->getService('autoloader');
                 $autoloader->addClassMap([
-                    'Foolz\Foolfuuka\Controller\Chan\Quests' => __DIR__.'/classes/controller/chan.php'
+                    'Foolz\FoolFuuka\Controller\Chan\Quests' => __DIR__.'/classes/controller/chan.php'
                 ]);
 
                 Event::forge('Foolz\FoolFrame\Model\Context::handleWeb#obj.routing')
@@ -43,7 +43,7 @@ class HHVM_Quests
                                 'foolfuuka.plugin.quests.chan.radix.'.$radix->shortname, new Route(
                                     '/'.$radix->shortname.'/quests/{_suffix}',
                                     [
-                                        '_controller' => '\Foolz\Foolfuuka\Controller\Chan\Quests::*',
+                                        '_controller' => '\Foolz\FoolFuuka\Controller\Chan\Quests::*',
                                         '_default_suffix' => 'page',
                                         '_suffix' => '',
                                         'radix_shortname' => $radix->shortname
